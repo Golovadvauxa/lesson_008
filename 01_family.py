@@ -62,6 +62,10 @@ class Human:
         self.happiness = 100
 
     def __str__(self):
+        if self.fulness > 100:
+            self.fulness = 100
+        if self.happiness > 100:
+            self.happiness = 100
         return '{}, сытость- {} счастье- {}'.format(self.name, self.fulness, self.happiness)
 
 
@@ -89,8 +93,6 @@ class Husband(Human):
             self.work()
         else:
             self.gaming()
-
-
 
     def eat(self):
         if self.house.food >= 30:
@@ -171,20 +173,19 @@ class Wife(Human):
             cprint('{} убрала дома'.format(self.name), color='magenta')
 
 
-home = House()
-serge = Husband(name='Сережа', house=home)
-masha = Wife(name='Маша', house=home)
+# home = House()
+# serge = Husband(name='Сережа', house=home)
+# masha = Wife(name='Маша', house=home)
+#
+# for day in range(365):
+#     cprint('================== День {} =================='.format(day), color='red')
+#     home.mess += 5
+#     serge.act()
+#     masha.act()
+#     cprint(serge, color='white')
+#     cprint(masha, color='white')
+#     cprint(home, color='grey')
 
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    home.mess += 5
-    serge.act()
-    masha.act()
-    cprint(serge, color='white')
-    cprint(masha, color='white')
-    cprint(home, color='grey')
-
-# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -240,25 +241,32 @@ for day in range(365):
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-# class Child:
-#
-#     def __init__(self):
-#         pass
-#
-#     def __str__(self):
-#         return super().__str__()
-#
-#     def act(self):
-#         pass
-#
-#     def eat(self):
-#         pass
-#
-#     def sleep(self):
-#         pass
+class Child(Human):
 
+    def __init__(self, name, house):
+        super().__init__(name=name, house=house)
 
-# TODO после реализации второй части - отдать на проверку учителем две ветки
+    def __str__(self):
+        return super().__str__()
+
+    def act(self):
+        dice = randint(1, 4)
+        if self.fulness <= 0:
+            cprint('{} умер от голода'.format(self.name))
+        elif (self.fulness <= 10) or (1 <= dice <= 2):
+            self.eat()
+        else:
+            self.sleep()
+
+    def eat(self):
+        if self.house.food >= 10:
+            self.house.food -= 10
+            self.fulness += 10
+            cprint('{} поел'.format(self.name), color='yellow')
+
+    def sleep(self):
+        self.fulness -= 5
+        cprint('{} поспал'.format(self.name), color='blue')
 
 
 ######################################################## Часть третья
@@ -268,22 +276,23 @@ for day in range(365):
 # отправить на проверку учителем.
 
 
-# home = House()
-# serge = Husband(name='Сережа')
-# masha = Wife(name='Маша')
-# kolya = Child(name='Коля')
+home = House()
+serge = Husband(name='Сережа', house=home)
+masha = Wife(name='Маша', house=home)
+kolya = Child(name='Коля', house=home)
 # murzik = Cat(name='Мурзик')
-#
-# for day in range(365):
-#     cprint('================== День {} =================='.format(day), color='red')
-#     serge.act()
-#     masha.act()
-#     kolya.act()
-#     murzik.act()
-#     cprint(serge, color='cyan')
-#     cprint(masha, color='cyan')
-#     cprint(kolya, color='cyan')
-#     cprint(murzik, color='cyan')
+
+for day in range(365):
+    cprint('================== День {} =================='.format(day), color='red')
+    home.mess += 5
+    serge.act()
+    masha.act()
+    kolya.act()
+    # murzik.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    cprint(kolya, color='cyan')
+    # cprint(murzik, color='cyan')
 
 # Усложненное задание (делать по желанию)
 #
