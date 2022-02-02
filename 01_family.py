@@ -90,8 +90,6 @@ class Husband(Human):
         else:
             self.gaming()
 
-
-
     def eat(self):
         if self.house.food >= 30:
             self.house.food -= 30
