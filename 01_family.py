@@ -103,6 +103,8 @@ class Husband(Human):
         else:
             self.gaming()
 
+
+
     def eat(self):
         if self.house.food >= 30:
             self.house.food -= 30
@@ -221,18 +223,7 @@ class Wife(Human):
 #     cprint(masha, color='white')
 #     cprint(home, color='grey')
 
-# home = House()
-# serge = Husband(name='Сережа', house=home)
-# masha = Wife(name='Маша', house=home)
-#
-# for day in range(365):
-#     cprint('================== День {} =================='.format(day), color='red')
-#     home.mess += 5
-#     serge.act()
-#     masha.act()
-#     cprint(serge, color='white')
-#     cprint(masha, color='white')
-#     cprint(home, color='grey')
+
 
 
 
