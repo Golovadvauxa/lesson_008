@@ -92,9 +92,6 @@ class Husband(Human):
         super().__init__(name=name, house=house)
         self.need_food = 30
 
-    def __str__(self):
-        return super().__str__()
-
     def act(self):
         i = randint(1, 3)
         if self.house.mess >= 100:
@@ -147,9 +144,6 @@ class Wife(Human):
     def __init__(self, name, house):
         super().__init__(name=name, house=house)
         self.need_food = 20
-
-    def __str__(self):
-        return super().__str__()
 
     def act(self):
         i = randint(1, 6)
@@ -301,9 +295,6 @@ class Child(Human):
     def __init__(self, name, house):
         super().__init__(name=name, house=house)
         self.need_food = 10
-
-    def __str__(self):
-        return super().__str__()
 
     def act(self):
         dice = randint(1, 4)
