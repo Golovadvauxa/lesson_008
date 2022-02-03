@@ -73,11 +73,24 @@ class Human:
             self.happiness = 100
         return '{}, сытость- {} счастье- {}'.format(self.name, self.fulness, self.happiness)
 
+    def eat(self, need_food):
+        if self.house.food >= need_food:
+            self.house.food -= need_food
+            self.fulness += need_food
+            cprint('{} ест'.format(self.name), color='yellow')
+
+    def feed_cat(self):
+        if self.house.cat_food >= 10:
+            self.house.cat_food -= 10
+            self.house.cat_plate += 10
+            cprint('{} кормит кота '.format(self.name), color='blue')
+
 
 class Husband(Human):
 
     def __init__(self, name, house):
         super().__init__(name=name, house=house)
+        self.need_food = 30
 
     def __str__(self):
         return super().__str__()
@@ -103,13 +116,9 @@ class Husband(Human):
         else:
             self.gaming()
 
-
-
     def eat(self):
-        if self.house.food >= 30:
-            self.house.food -= 30
-            self.fulness += 30
-            cprint('{} поел'.format(self.name), color='yellow')
+
+        super().eat(self.need_food)
 
     def work(self):
         self.house.money += 150
@@ -122,10 +131,8 @@ class Husband(Human):
         cprint('{} играл в танчики'.format(self.name), color='green')
 
     def feed_cat(self):
-        if self.house.cat_food >= 10:
-            self.house.cat_food -= 10
-            self.house.cat_plate += 10
-            cprint('{} покормил кота '.format(self.name), color='blue')
+
+        super().feed_cat()
 
     def cat_shopping(self):
         if self.house.money >= 10:
@@ -139,6 +146,7 @@ class Wife(Human):
 
     def __init__(self, name, house):
         super().__init__(name=name, house=house)
+        self.need_food = 20
 
     def __str__(self):
         return super().__str__()
@@ -155,9 +163,6 @@ class Wife(Human):
             self.eat()
         elif self.house.food <= 50:
             self.shopping()
-
-        # elif self.house.cat_plate <= 10:
-        #     self.feed_cat()
         elif self.house.mess >= 120:
             self.clean_house()
         elif i == 1:
@@ -170,10 +175,8 @@ class Wife(Human):
             self.walking()
 
     def eat(self):
-        if self.house.food >= 20:
-            self.house.food -= 20
-            self.fulness += 20
-            cprint('{} поела'.format(self.name), color='yellow')
+
+        super().eat(self.need_food)
 
     def shopping(self):
         if self.house.money >= 50:
@@ -200,29 +203,13 @@ class Wife(Human):
             cprint('{} убрала дома'.format(self.name), color='magenta')
 
     def feed_cat(self):
-        if self.house.cat_food >= 10:
-            self.house.cat_food -= 10
-            self.house.cat_plate += 10
-            cprint('{} покормила кота '.format(self.name), color='blue')
+
+        super().feed_cat()
 
     def walking(self):
         self.happiness += 20
         self.fulness -= 10
         cprint('{} пошла проебаться'.format(self.name), color='green')
-
-# home = House()
-# serge = Husband(name='Сережа', house=home)
-# masha = Wife(name='Маша', house=home)
-#
-# for day in range(365):
-#     cprint('================== День {} =================='.format(day), color='red')
-#     home.mess += 5
-#     serge.act()
-#     masha.act()
-#     cprint(serge, color='white')
-#     cprint(masha, color='white')
-#     cprint(home, color='grey')
-
 
 
 
@@ -313,6 +300,7 @@ class Child(Human):
 
     def __init__(self, name, house):
         super().__init__(name=name, house=house)
+        self.need_food = 10
 
     def __str__(self):
         return super().__str__()
@@ -327,10 +315,8 @@ class Child(Human):
             self.sleep()
 
     def eat(self):
-        if self.house.food >= 10:
-            self.house.food -= 10
-            self.fulness += 10
-            cprint('{} поел'.format(self.name), color='yellow')
+
+        super().eat(self.need_food)
 
     def sleep(self):
         self.fulness -= 5
